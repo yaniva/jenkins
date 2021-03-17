@@ -1,5 +1,6 @@
 pipeline {  
-
+    agent any
+    
     environment {
           PATH_2_POM = './gri-parent/importers/alpine-importer/alpine-importer-service'
           IMAGE = readMavenPom().getArtifactId()
