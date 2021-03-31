@@ -3,11 +3,7 @@ pipeline {
     
      tools { 
         maven 'mvn3.6.3'
-    }
-    
-    environment {
-          PATH_2_POM = './gri-parent/importers/alpine-importer/alpine-importer-service'        
-    }
+    }   
 
     stages{
         stage ('clean and clone') {
