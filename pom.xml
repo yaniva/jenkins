@@ -12,6 +12,14 @@
         <docker.image.java.ops>JAVA_OPTS= -Xms${JAVA_OPTS_XMS} -Xmx${JAVA_OPTS_XMX}</docker.image.java.ops>
 		</properties>
 
+	<url>https://github.com/yaniva/jenkins</url>
+
+    <scm>
+        <connection>scm:git:git@github.com:yaniva/jenkins.git</connection>
+        <developerConnection>scm:git:git@github.com:yaniva/jenkins.git</developerConnection>
+        <url>git@github.com:whitesource/yaniva/jenkins.git</url>
+    </scm>
+	
     <build>        
         <plugins>
              <plugin>
