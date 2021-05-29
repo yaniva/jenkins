@@ -37,14 +37,26 @@ pipeline {
                 }
                 
                sh'''
-                    echo ${TAG_VERSION}
-                    git config --global user.email "yanweb2000@gmail.com"
-                    git config --global user.name "yaniva"
-                    git commit -am "committing release version" 
-                    git push --set-upstream origin main
-                    git tag -a ${TAG_VERSION} -m "tagging release version" 
-                '''                
+                    echo tag version: ${TAG_VERSION}                   
+                    echo 'commit  + tag ...'
+                '''  
+                script{
+                    env.NEXT_VERSION = bumpVersion(${TAG_VERSION})
+                }
+                sh'''
+                    echo next version ${NEXT_VERSION}                   
+                    echo 'commit next snapshot ...'
+                '''  
+                
             }        
         }
     }
+}
+
+def bumpVersion(version){
+    def versionParts = version.tokenize('.')        
+    major = versionParts[0].toInteger()
+    minor = versionParts[1].toInteger()
+    patch = versionParts[2].toInteger()
+    return "${major}.${minor}.${patch+1}"
 }
