@@ -28,8 +28,14 @@ pipeline {
        stage('bump version') {
             steps {
                 sh '''
-                mvn release:prepare release:perform
-                '''                
+                mvn versions:set versions:commit -DremoveSnapshot
+                '''
+                script{
+                    env.TAG_VERSION = sh(script: "mvn help:evaluate -Dexpression=project.version -q -DforceStdout", returnStdout: true).trim()
+                }
+                sh '''
+                echo ${TAG_VERSION}
+                '''
             }        
         }
     }
