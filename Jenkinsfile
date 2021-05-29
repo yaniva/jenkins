@@ -27,21 +27,21 @@ pipeline {
         }
        stage('bump version') {
             steps {
+                
                 sh '''
                 mvn versions:set versions:commit -DremoveSnapshot
                 '''
+                
                 script{
                     env.TAG_VERSION = sh(script: "mvn help:evaluate -Dexpression=project.version -q -DforceStdout", returnStdout: true).trim()
                 }
-                sh '''
-                echo ${TAG_VERSION}
-                '''
+                
                sh'''
+                    echo ${TAG_VERSION}
                     git commit -am "committing release version" 
                     git push
                     git tag -a ${TAG_VERSION} -m "tagging release version" 
-                '''
-                }
+                '''                
             }        
         }
     }
