@@ -25,15 +25,18 @@ pipeline {
                 sh 'mvn clean compile'
             }
         }
-        stage('Build Docker Image') {
+       stage('bump version') {
             steps {
                 sh '''
-                echo $IMAGE
-                echo $VERSION
-                echo $DOCKER_IMAGE_JAVA_OPS_PARAM
-                docker version
+                mvn versions:set versions:commit -DremoveSnapshot
                 '''
-            }
+                script{
+                    env.TAG_VERSION = sh(script: "mvn help:evaluate -Dexpression=project.version -q -DforceStdout", returnStdout: true).trim()
+                }
+                sh '''
+                echo ${TAG_VERSION}
+                '''
+            }        
         }
     }
 }
