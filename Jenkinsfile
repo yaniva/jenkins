@@ -41,7 +41,7 @@ pipeline {
                     git config --global user.email "yanweb2000@gmail.com"
                     git config --global user.name "yaniva"
                     git commit -am "committing release version" 
-                    git push
+                    git push --set-upstream origin main
                     git tag -a ${TAG_VERSION} -m "tagging release version" 
                 '''                
             }        
