@@ -41,7 +41,7 @@ pipeline {
                     echo 'commit  + tag ...'
                 '''  
                 script{
-                    env.NEXT_VERSION = bumpVersion(${TAG_VERSION})
+                    env.NEXT_VERSION = bumpVersion(env.NEXT_VERSION)
                 }
                 sh'''
                     echo next version ${NEXT_VERSION}                   
@@ -58,5 +58,5 @@ def bumpVersion(version){
     major = versionParts[0].toInteger()
     minor = versionParts[1].toInteger()
     patch = versionParts[2].toInteger()
-    return "${major}.${minor}.${patch+1}"
+    return "${major}.${minor}.${patch+1}-SNAPSHOT"
 }
