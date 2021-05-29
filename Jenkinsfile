@@ -36,12 +36,11 @@ pipeline {
                 sh '''
                 echo ${TAG_VERSION}
                 '''
-                script{
-                    withCredentials() {
-                            sh 'git commit -am "committing release version" '
-                            sh 'git push'
-                            sh 'git tag -a ${TAG_VERSION} -m "tagging release version" '
-                    }
+               sh'''
+                    git commit -am "committing release version" 
+                    git push
+                    git tag -a ${TAG_VERSION} -m "tagging release version" 
+                '''
                 }
             }        
         }
